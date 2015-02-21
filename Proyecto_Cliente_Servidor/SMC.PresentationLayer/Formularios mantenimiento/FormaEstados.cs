@@ -12,7 +12,7 @@ namespace SMC.PresentationLayer
      public partial class FormaEstados : SMC.PresentationLayer.FormaPlantillaAgregarModificar
      {
          private DataSet _datos;
-
+         public int var = 0;
         public FormaEstados()
         {
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace SMC.PresentationLayer
            // String ora_connect = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
           //  Conexion.CadenaConexion = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
             connection.ConnectionString = Conexion.CadenaConexion;
+           // connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
 
             try
             {
@@ -285,6 +286,73 @@ namespace SMC.PresentationLayer
         private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void dgvDatos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            int testInt;
+            #region validar codigo
+            if (e.ColumnIndex == 0)
+            {
+
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (int.TryParse(e.FormattedValue.ToString(), out testInt))
+                        {
+                            dgvDatos.Rows[e.RowIndex].ErrorText = "Debe ser un alfabetico \n menor o igual a 2";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvDatos.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: codigo deber ser alfabetico");
+                    }
+                }
+            }
+            #endregion
+            #region validar nombre
+            if (e.ColumnIndex == 1)
+            {
+
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (int.TryParse(e.FormattedValue.ToString(), out testInt))
+                        {
+                            dgvDatos.Rows[e.RowIndex].ErrorText = "Debe ser un alfabetico \n menor o igual a 20";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvDatos.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: nombre deber ser alfabetico");
+                    }
+                }
+            }
+            #endregion
+        }
+
+        private void dgvDatos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+             
+        }
+
+        private void dgvDatos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            
         }
     }
 }

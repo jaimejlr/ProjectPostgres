@@ -137,7 +137,8 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
             try
             {
                // Conexion.CadenaConexion = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
-                connection.ConnectionString = Conexion.CadenaConexion;
+                //connection.ConnectionString = Conexion.CadenaConexion;
+                connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
                 connection.Open();
                 string select = "SELECT InvoiceID,CustomerID,InvoiceDate,ProductTotal,SalesTax, Shipping, InvoiceTotal " +
                                  "FROM INVOICES WHERE InvoiceID =:InvoiceID";

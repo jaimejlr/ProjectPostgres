@@ -18,6 +18,7 @@ namespace SMC.PresentationLayer
 
         private void FormaAMcliente_Load(object sender, EventArgs e)
         {
+            this.Location = new Point(530, 130);
             //Se presiono el boton: Modificar.
             if (FormaMcliente.BotonPresionado == 2)
             {
@@ -33,7 +34,8 @@ namespace SMC.PresentationLayer
 
             try
             {
-                connection.ConnectionString = Conexion.CadenaConexion;                
+              //  connection.ConnectionString = Conexion.CadenaConexion;                
+                connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
 
                 //Preparar el SQL para el objeto Command
                 string select = "SELECT StateCode, StateName " +

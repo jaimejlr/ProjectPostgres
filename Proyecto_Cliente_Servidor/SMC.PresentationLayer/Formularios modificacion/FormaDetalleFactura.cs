@@ -65,7 +65,8 @@ namespace SMC.PresentationLayer.Formularios_modificacion
             try
             {
                 //Conexion.CadenaConexion = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
-                connection.ConnectionString = Conexion.CadenaConexion;
+               // connection.ConnectionString = Conexion.CadenaConexion;
+                connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
                 connection.Open();
 
                 string select = "SELECT ProductCode as PRODUCTO,UnitPrice as PRECIO,Quantity as CANTIDAD,ItemTotal as TOTAL "+
@@ -411,6 +412,7 @@ namespace SMC.PresentationLayer.Formularios_modificacion
          
           productos.button1.Visible = false;
           productos.button2.Visible = false;
+          
             productos.Show();
         }
 
@@ -433,6 +435,101 @@ namespace SMC.PresentationLayer.Formularios_modificacion
         private void txtTotalProductos_KeyPress(object sender, KeyPressEventArgs e)
         {
             Validacion.SoloNumeros(sender, e);
+        }
+
+        private void dgvDetalle_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            int testInt;
+            double testDouble;
+            
+            #region validar precio
+            if (e.ColumnIndex == 1)
+            {
+
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (!double.TryParse(e.FormattedValue.ToString(), out testDouble))
+                        {
+
+
+                            dgvDetalle.Rows[e.RowIndex].ErrorText = "Debe ser numerico";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvDetalle.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: precio debe ser numerico");
+                    }
+                }
+            }
+            #endregion
+
+            #region validar cantidad
+            if (e.ColumnIndex == 2)
+            {
+
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (!int.TryParse(e.FormattedValue.ToString(), out testInt))
+                        {
+                            dgvDetalle.Rows[e.RowIndex].ErrorText = "Debe ser numerico";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvDetalle.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: cantidad debe ser numerico");
+                    }
+                }
+            }
+            #endregion
+
+            #region validar total
+            else if (e.ColumnIndex == 3)
+            {
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (!double.TryParse(e.FormattedValue.ToString(), out testDouble))
+                        {
+                            dgvDetalle.Rows[e.RowIndex].ErrorText = "Debe ser un numero \n entero o decimal";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvDetalle.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: total deber ser numero");
+                    }
+                }
+            }
+            #endregion
+
+           
+        }
+
+        private void dgvDetalle_Click(object sender, EventArgs e)
+        {
+            //dgvDetalle.Columns["PRODUCT"].ReadOnly = true;
         }
     }
 

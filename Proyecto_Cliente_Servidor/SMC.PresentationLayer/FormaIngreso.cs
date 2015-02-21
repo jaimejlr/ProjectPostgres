@@ -33,7 +33,8 @@ namespace SMC.PresentationLayer
                 //connection2.ConnectionString = "Provider=SQLOLEDB;Data Source=(local);Integrated Security=SSPI";
 
                 //Establecer las principales propiedades del Connection.
-                connection.ConnectionString = "User Id=postgres;Password=jaime;Host=localhost;Database=MMABooks;Initial Schema=public"; ;//jaime
+                connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
+                //connection.ConnectionString = "User Id=postgres;Password=jaime;Host=localhost;Database=MMABooks;Initial Schema=public"; //jaime
                // connection.ConnectionString = "User Id=postgres;Password=uta007008;Host=192.168.1.10;Database=MMABooks;Initial Schema=public";//quinaluisa
                 //connection.ConnectionString = "User Id="+txtUsuario.Text+"; Password="+txtContraseña.Text+"; Data Source="+txtServidor.Text+"";
                 //"Data Source="+txtServidor.Text+";Initial Catalog="+txtBaseDatos.Text+";User ID="+txtUsuario.Text+";Password="+txtContraseña.Text+"";

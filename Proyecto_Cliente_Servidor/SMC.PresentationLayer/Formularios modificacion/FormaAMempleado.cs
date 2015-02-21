@@ -139,6 +139,7 @@ namespace SMC.PresentationLayer.Formularios_modificacion
        
         private void FormaAMempleado_Load(object sender, EventArgs e)
         {
+            this.Location = new Point(530, 130);
             this.txtApellido.Select();
             if (SMC.PresentationLayer.Formularios_mantenimiento.FormaMempleado.BotonPresionado == 2)
             {

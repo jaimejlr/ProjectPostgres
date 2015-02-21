@@ -16,10 +16,10 @@ namespace SMC.PresentationLayer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            //Application.Run(new SMC.PresentationLayer.Formularios_mantenimiento.FormaMFactura());
-       // Application.Run(new SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura());
+      //  Application.Run(new FormaMcliente());
             //Application.Run(new SMC.PresentationLayer.Resources.FormaBuscarProductos());
-           //Application.Run(new SMC.PresentationLayer.Formularios_mantenimiento.OrderOptions());
-           Application.Run(new FormaIngreso());
+         //  Application.Run(new FormaEstados());
+          Application.Run(new FormaIngreso());
         //SMC.PresentationLayer.Formularios_mantenimiento.FormaMempleado
         }
     }

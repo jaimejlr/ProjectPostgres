@@ -13,6 +13,7 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
     {
         DataSet _datos;
         int boton;
+        public int probar = 0;
         public FormaMProductos()
         {
             InitializeComponent();
@@ -29,7 +30,8 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
             PgSqlConnection connection = new PgSqlConnection();
           //  string cadena = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
            // Conexion.CadenaConexion = connection;
-            connection.ConnectionString = Conexion.CadenaConexion;
+            connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
+            //connection.ConnectionString = Conexion.CadenaConexion;
              
 
             try
@@ -88,13 +90,16 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
 
         private void FormaMProductos_Load(object sender, EventArgs e)
         {
+           
             if(boton==1){
+                this.Location = new Point(830, 200);
                 //cuando instaciamos desde el formulario factura detalle
                 //no necesitamos los botones de guardar y cancelar
                 //por lo tanto los desabilitamos
                 btnGuardar.Visible = false;
                 btnCancelar.Visible = false;
                 recuperar();
+                dgvProductos.ReadOnly = true;
             }
             else {
                 recuperar();
@@ -218,19 +223,27 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
         {
             try
             {
+                SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura detalle = (SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura)Application.OpenForms[1];
+             //  detalle.dgvDetalle.Columns["PRODUCT"].ReadOnly = false;
                 if (boton == 1)
                 {
+                    dgvProductos.ReadOnly = true;
                     String producto = (dgvProductos.Rows[e.RowIndex].Cells["PRODUCTCODE"].Value.ToString());
                     String precio = (dgvProductos.Rows[e.RowIndex].Cells["UNITPRICE"].Value.ToString());
-                    SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura detalle = (SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura)Application.OpenForms[3];
+                     //[3]
                     DataRow row = detalle.dt.NewRow();//creas un registro 
                     row["PRODUCTO"] = producto; //Le añadres un valor 
                     row["PRECIO"] = precio;
+                    //detalle.dgvDetalle.Columns["PRODUCTO"].Frozen = false;
+                   
                     detalle.dt.Rows.Add(row); //añades el registro a la tabla 
                     detalle.dgvDetalle.DataSource = detalle.dt; //añades la tabla al datagrid 
                     detalle.dgvDetalle.Update(); //actualizas
                     //detalle.dgvDetalle.U
+                    
                 }
+                
+                        
             }
             catch (Exception ex)
             {
@@ -238,5 +251,168 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
             }
             
         }
-    }
+
+        private void dgvProductos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            
+
+
+        }
+
+       
+
+        private void dgvProductos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+
+            int testInt;
+            double testDouble;
+            #region validar codigo 
+            if (e.ColumnIndex == 0) {
+
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (int.TryParse(e.FormattedValue.ToString(), out testInt))
+                            
+                        {
+                            
+
+                            dgvProductos.Rows[e.RowIndex].ErrorText = "Debe ser un alfabetico \n menor o igual a 10";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvProductos.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: codigo  deber ser alfabeticos");
+                    }
+                }
+            }
+            #endregion
+
+            #region validar descripcion
+            if (e.ColumnIndex == 1)
+            {
+
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (int.TryParse(e.FormattedValue.ToString(), out testInt))
+                        {
+                            dgvProductos.Rows[e.RowIndex].ErrorText = "Debe ser un alfabetico \n menor o igual a 50";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvProductos.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: descripcion deber ser alfabetico");
+                    }
+                }
+            }
+            #endregion
+
+            #region validar precio
+            else if (e.ColumnIndex == 2)
+          {
+              if (e.FormattedValue.ToString().Length != 0)
+              {
+                  try{
+                  if (!double.TryParse(e.FormattedValue.ToString(), out testDouble))
+                  {
+                      dgvProductos.Rows[e.RowIndex].ErrorText = "Debe ser un numero \n entero o decimal";
+                      e.Cancel = true;
+                  }
+                  else
+                  {
+                      dgvProductos.Rows[e.RowIndex].ErrorText = string.Empty;
+                      e.Cancel = false;
+                  }
+                  }
+                  catch(Exception ex){
+                  MessageBox.Show("Error: precio deber ser numero");
+                  }
+              }
+          }
+            #endregion
+
+            #region validar cantidad disponible
+            else if (e.ColumnIndex == 3)
+            {
+                if (e.FormattedValue.ToString().Length != 0)
+                {
+                    try
+                    {
+                        if (!int.TryParse(e.FormattedValue.ToString(), out testInt))
+                        {
+                            dgvProductos.Rows[e.RowIndex].ErrorText = "Debe ser un \n numero entero ";
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            dgvProductos.Rows[e.RowIndex].ErrorText = string.Empty;
+                            e.Cancel = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: cantidad deber ser numerico");
+                    }
+                }
+            }
+            #endregion
+        }
+
+        private void dgvProductos_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show(this, "Precio y Cantidad deben ser numeros", "Error");
+            e.ThrowException = false;
+            e.Cancel = false;
+        }
+
+        private void dgvProductos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
 }
+
+        private void FormaMProductos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void FormaMProductos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //MessageBox.Show("hola");
+            //if (boton == 1)
+            //{
+            //    SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura detalle = new SMC.PresentationLayer.Formularios_modificacion.FormaDetalleFactura();
+            //    //MessageBox.Show("hola");
+            //    detalle.detalle.dgvDetalle.Columns["PRODUCT"].ReadOnly = true;
+            //    detalle.Close();
+            //    this.Dispose();
+            //    this.Close();
+                
+            //}
+        }
+            
+            
+            
+                 
+        }
+            
+      }
+
+        
+        
+    
+

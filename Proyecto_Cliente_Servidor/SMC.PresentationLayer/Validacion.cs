@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
 namespace SMC.PresentationLayer
 {
     class Validacion
@@ -24,4 +23,6 @@ namespace SMC.PresentationLayer
                 e.Handled = true;
         }
     }
+
+     
 }

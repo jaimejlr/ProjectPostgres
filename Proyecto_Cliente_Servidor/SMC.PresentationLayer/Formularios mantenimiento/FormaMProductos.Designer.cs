@@ -56,6 +56,10 @@
             this.dgvProductos.TabIndex = 19;
             this.dgvProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellContentClick);
             this.dgvProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellContentDoubleClick);
+            this.dgvProductos.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvProductos_CellValidating);
+            this.dgvProductos.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvProductos_DataError);
+            this.dgvProductos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProductos_EditingControlShowing);
+            this.dgvProductos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvProductos_KeyPress);
             // 
             // button1
             // 
@@ -93,6 +97,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dgvProductos);
             this.Name = "FormaMProductos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormaMProductos_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormaMProductos_FormClosed);
             this.Load += new System.EventHandler(this.FormaMProductos_Load);
             this.Controls.SetChildIndex(this.btnGuardar, 0);
             this.Controls.SetChildIndex(this.btnCancelar, 0);
