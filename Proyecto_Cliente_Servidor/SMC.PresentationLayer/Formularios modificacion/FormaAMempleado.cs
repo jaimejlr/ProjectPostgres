@@ -20,7 +20,9 @@ namespace SMC.PresentationLayer.Formularios_modificacion
         {
             PgSqlConnection connection = new PgSqlConnection();
             //Conexion.CadenaConexion = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
-            connection.ConnectionString = Conexion.CadenaConexion;
+            //connection.ConnectionString = Conexion.CadenaConexion;
+            connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
+
             try { 
                 if(SMC.PresentationLayer.Formularios_mantenimiento.FormaMempleado.BotonPresionado==1){
             #region insertar
@@ -139,7 +141,7 @@ namespace SMC.PresentationLayer.Formularios_modificacion
        
         private void FormaAMempleado_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(530, 130);
+            this.Location = new Point(630, 130);
             this.txtApellido.Select();
             if (SMC.PresentationLayer.Formularios_mantenimiento.FormaMempleado.BotonPresionado == 2)
             {

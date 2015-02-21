@@ -73,5 +73,10 @@ namespace SMC.PresentationLayer.Formularios_modificacion
         {
             Validacion.SoloNumeros(sender, e);
         }
+
+        private void OrderOptionsAgregar_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(645, 90);
+        }
   }
 }

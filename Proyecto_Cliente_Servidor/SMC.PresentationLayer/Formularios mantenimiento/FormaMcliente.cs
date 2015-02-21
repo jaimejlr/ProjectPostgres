@@ -421,6 +421,7 @@ namespace SMC.PresentationLayer
 
         private void FormaMcliente_Load(object sender, EventArgs e)
         {
+            this.Location = new Point(1, 5);
             //FormaBuscarCustomers.forma.eventoUno += new FormaBuscarCustomers.enviar(delegate(string t) { txtNombre.Text = t; });
         }
 

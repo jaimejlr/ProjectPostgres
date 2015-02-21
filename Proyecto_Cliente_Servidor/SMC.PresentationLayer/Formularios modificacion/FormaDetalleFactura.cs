@@ -135,7 +135,7 @@ namespace SMC.PresentationLayer.Formularios_modificacion
 
         private void FormaDetalleFactura_Load(object sender, EventArgs e)
         {
-
+            this.Location = new Point(2, 90);
             //PgSqlConnection connection = new PgSqlConnection();
 
 

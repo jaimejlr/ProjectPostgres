@@ -25,6 +25,7 @@ namespace SMC.PresentationLayer
         private void FormaEstados_Load(object sender, EventArgs e)
         {
             Recuperar();
+            this.Location = new Point(1, 5);
         }
 
         private void Recuperar()

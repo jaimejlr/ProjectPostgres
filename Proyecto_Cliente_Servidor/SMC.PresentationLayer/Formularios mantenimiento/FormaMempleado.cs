@@ -106,6 +106,7 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
         private void FormaMempleado_Load(object sender, EventArgs e)
         {
             this.txtIDempleado.Select();
+            this.Location = new Point(1, 5);
         }
         
        
@@ -126,6 +127,7 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            if(txtIDempleado.Text!=" "){
             BotonPresionado = 2;
             SMC.PresentationLayer.Formularios_modificacion.FormaAMempleado VentanaEmpleado = new Formularios_modificacion.FormaAMempleado();
 
@@ -139,6 +141,7 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
 
             VentanaEmpleado.Text = "Modificar Empleado";
             VentanaEmpleado.ShowDialog();
+            }else MessageBox.Show("Busque primero empleado");
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -147,8 +150,8 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
             try {
                 //String ora_connect = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
                 PgSqlConnection connection = new PgSqlConnection();
-                connection.ConnectionString = Conexion.CadenaConexion;
-
+                //connection.ConnectionString = Conexion.CadenaConexion;
+                connection.ConnectionString = "User Id=postgres;Password=postgres;Host=localhost;Database=MMABOOKS;Initial Schema=public";
                 connection.Open();
               
                 string select = ("SELECT EmployeeID,LastName,FirstName,Title,HireDate,PostalCode " +

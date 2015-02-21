@@ -31,7 +31,15 @@ namespace SMC.PresentationLayer
         }
         private void FormaBuscarCustomers_Load(object sender, EventArgs e)
         {
+            this.Location = new Point(645, 90);
+            
+            if(valor==1){
+                groupBox2.Visible = false;
+                btnQuitarFiltro.Visible = false;
+                
+            }
             PgSqlConnection connection = new PgSqlConnection();
+            dgvDatos.ReadOnly = true;
              //Conexion.CadenaConexion = connection.ConnectionString;
 
            // Conexion.CadenaConexion = "User Id= MMABooks; Password=MMABooks; Data Source=XE";
@@ -182,6 +190,7 @@ namespace SMC.PresentationLayer
 
         private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             try
             {
                 if (valor == 1)

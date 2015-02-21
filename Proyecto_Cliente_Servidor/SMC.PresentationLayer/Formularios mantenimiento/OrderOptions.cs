@@ -261,5 +261,10 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
             else
                 e.Handled = true;
         }
+
+        private void OrderOptions_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(1, 20);
+        }
     }
 }

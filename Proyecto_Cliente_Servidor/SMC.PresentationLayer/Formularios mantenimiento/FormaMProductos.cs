@@ -102,6 +102,7 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
                 dgvProductos.ReadOnly = true;
             }
             else {
+                this.Location = new Point(1, 20);
                 recuperar();
             }
             

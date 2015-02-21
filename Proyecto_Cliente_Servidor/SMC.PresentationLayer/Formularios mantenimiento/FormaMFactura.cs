@@ -130,6 +130,7 @@ namespace SMC.PresentationLayer.Formularios_mantenimiento
         private void FormaMFacturaDetalle_Load(object sender, EventArgs e)
         {
             txtNumeroFactura.Select();
+            this.Location = new Point(1, 5);
         }
 
         private void recuperar() {
